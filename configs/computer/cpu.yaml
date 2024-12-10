@@ -1,0 +1,8 @@
+devices: null
+num_workers: 0
+progress_bar_refresh_rate: 2
+sync_batchnorm: False
+accelerator: cpu
+precision: 32
+strategy: auto
+num_nodes: null

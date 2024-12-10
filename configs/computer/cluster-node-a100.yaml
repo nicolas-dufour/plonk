@@ -1,0 +1,8 @@
+devices: 8
+num_workers: 8
+progress_bar_refresh_rate: 2
+sync_batchnorm: True
+accelerator: gpu
+precision: 32
+strategy: ddp
+num_nodes: 1

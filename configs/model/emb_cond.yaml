@@ -1,0 +1,24 @@
+defaults:
+  - optimizer: lamb
+  - lr_scheduler: warmup_cosine_decay
+  - network: geo_adaln_mlp
+  - train_noise_scheduler: sigmoid
+  - inference_noise_scheduler: cosine_simple
+  - preconditioning: ddpm
+  - data_preprocessing: normalized_gps
+  - cond_preprocessing: embedding
+  - postprocessing: renorm_gps
+  - loss: ddpm
+  - val_sampler: ddim
+  - test_sampler: ddpm
+  - manifold: null
+  - _self_
+
+network:
+  input_dim: 2
+name: GeoMLP_R2
+ema_decay: 0.999
+start_ema_step: 0
+cfg_rate: 2.0
+interpolant: flow_matching
+compute_nll: true

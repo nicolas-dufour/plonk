@@ -1,0 +1,6 @@
+optim:
+  _target_: torch.optim.SGD
+  lr: 1e-3
+  weight_decay: 0.01
+
+exclude_ln_and_biases_from_weight_decay: False

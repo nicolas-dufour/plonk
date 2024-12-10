@@ -1,0 +1,33 @@
+from setuptools import setup, find_packages
+
+setup(
+    name="diff_plonk",
+    version="0.1",
+    packages=find_packages(),
+    install_requires=[
+        "torch",
+        "torchvision",
+        "joblib",
+        "wandb",
+        "hydra-core",
+        "numpy",
+        "scipy==1.13.1",
+        "pandas",
+        "scikit-learn",
+        "pytorch-lightning",
+        "transformers",
+        "accelerate",
+        "peft",
+        "geos",
+        "reverse_geocoder",
+        "matplotlib",
+        "geoopt",
+        "einops",
+        "torchdiffeq",
+        "webdataset==0.2.57",
+        "pytest",
+        "streamlit",
+        "streamlit-extras",
+        "plotly",
+    ],
+)

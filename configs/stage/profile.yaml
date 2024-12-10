@@ -1,0 +1,20 @@
+# @package _global_
+
+trainer:
+  max_steps: 15
+  profiler:
+    _target_: pytorch_lightning.profilers.PyTorchProfiler
+    dirpath: ${root_dir}/profiler_log/${experiment_name}
+    schedule:
+      _target_: torch.profiler.schedule
+      skip_first: 5
+      wait: 2
+      warmup: 1
+      active: 3
+      repeat: 0
+    on_trace_ready: 
+      _target_: torch.profiler.tensorboard_trace_handler
+      dir_name: ${root_dir}/profiler_log/${experiment_name}
+    with_stack: True
+    record_shapes: True
+    with_modules: True

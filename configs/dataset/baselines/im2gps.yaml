@@ -1,0 +1,16 @@
+dataset:
+  name: im2gps
+  full_batch_size: 512
+  test_dataset:
+    _partial_: true
+    _target_: data.data.Baseline
+    path: ${data_dir}/baselines/im2gps
+    which: 'im2gps'
+    transforms: ${dataset.test_transform}
+datamodule:
+  _target_: data.datamodule.BaselineDataModule
+  test_dataset: ${dataset.test_dataset}
+  full_batch_size: ${dataset.full_batch_size}
+  num_workers: ${computer.num_workers}
+  num_nodes: ${computer.num_nodes}
+  num_devices: ${computer.devices}

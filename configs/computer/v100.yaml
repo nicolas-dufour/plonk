@@ -1,0 +1,8 @@
+devices: 1
+num_workers: 10
+progress_bar_refresh_rate: 2
+sync_batchnorm: False
+accelerator: gpu
+precision: 32
+strategy: auto
+num_nodes: 1

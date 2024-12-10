@@ -1,0 +1,36 @@
+# @package _global_
+
+defaults:
+  - override /dataset: inaturalist_emb
+  - override /model: emb_cond
+  - override /model/network: geo_adaln_mlp
+  - override /model/train_noise_scheduler: sigmoid
+  - override /model/inference_noise_scheduler: sigmoid
+  - override /model/loss: ddpm
+  - _self_
+
+model:
+  network:
+    depth: 12
+    dim: 256
+  optimizer:
+    optim:
+      lr: 8e-4
+      weight_decay: 0.1
+  loss:
+    cond_drop_rate: 0.1
+  train_noise_scheduler:
+    start: -7
+    end: 3
+    tau: 1.0
+  inference_noise_scheduler:
+    start: -7
+    end: 3
+    tau: 1.0
+  interpolant: diffusion
+dataset:
+  full_batch_size: 512
+
+areas: []
+
+experiment_name_suffix: small_sigmoid

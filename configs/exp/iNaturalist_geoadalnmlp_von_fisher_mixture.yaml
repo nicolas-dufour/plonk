@@ -1,0 +1,26 @@
+# @package _global_
+
+defaults:
+  - override /dataset: inaturalist_emb
+  - override /model: von_fisher_mixture
+  - override /model/network: geo_adaln_mlp_von_fisher_mixture
+  - override /model/loss: von_fisher_mixture
+  - override /model/val_sampler: von_fisher_mixture
+  - override /model/test_sampler: von_fisher_mixture
+  - _self_
+
+model:
+  network:
+    depth: 11 # To compensate the increase in params
+    dim: 256
+  optimizer:
+    optim:
+      lr: 1e-5
+      weight_decay: 0.1
+dataset:
+  full_batch_size: 512
+trainer:
+  gradient_clip_val: 0.01
+  gradient_clip_algorithm: norm
+areas: []
+experiment_name_suffix: von_fisher_mixture

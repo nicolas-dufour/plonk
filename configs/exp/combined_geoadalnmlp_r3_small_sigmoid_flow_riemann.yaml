@@ -1,0 +1,40 @@
+# @package _global_
+
+defaults:
+  - override /dataset: combined_emb
+  - override /model: emb_cond_cartesian
+  - override /model/network: geo_adaln_mlp
+  - override /model/train_noise_scheduler: sigmoid
+  - override /model/inference_noise_scheduler: sigmoid
+  - override /model/loss: riemannian_flow_matching
+  - override /model/manifold: sphere
+  - override /model/val_sampler: riemannian_flow_matching
+  - override /model/test_sampler: riemannian_flow_matching
+  - _self_
+
+model:
+  network:
+    depth: 12
+    dim: 512
+  optimizer:
+    optim:
+      lr: 8e-4
+      weight_decay: 0.05
+  loss:
+    cond_drop_rate: 0.1
+  train_noise_scheduler:
+    start: -7
+    end: 3
+    tau: 1.0
+  inference_noise_scheduler:
+    start: -7
+    end: 3
+    tau: 1.0
+  interpolant: flow_matching
+
+dataset:
+  full_batch_size: 1024
+
+areas: []
+
+experiment_name_suffix: small_sigmoid

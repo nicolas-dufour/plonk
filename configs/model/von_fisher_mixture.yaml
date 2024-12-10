@@ -1,0 +1,19 @@
+defaults:
+  - optimizer: lamb
+  - lr_scheduler: warmup_cosine_decay
+  - network: geo_adaln_mlp_von_fisher_mixture
+  - preconditioning: ddpm
+  - data_preprocessing: gps_to_cartesian
+  - cond_preprocessing: embedding
+  - postprocessing: cartesian_to_gps
+  - loss: von_fisher_mixture
+  - val_sampler: von_fisher_mixture
+  - test_sampler: von_fisher_mixture
+  - _self_
+
+network:
+  input_dim: 3
+name: GeoMLP_R3_VonFisher_Mixture
+ema_decay: 0.999
+start_ema_step: 0
+interpolant: von_fisher

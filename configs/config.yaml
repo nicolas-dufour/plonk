@@ -1,0 +1,90 @@
+defaults:
+  - model: default
+  - computer: v100
+  - dataset: osv5m_emb
+  - stage: null
+  - _self_
+  - exp: ???
+
+model:
+  val_metrics:
+    _target_: metrics.distance_based.HaversineMetrics
+    acc_radiuses:
+      - 1
+      - 25
+      - 200
+      - 750
+      - 2500
+    acc_area: []
+  test_metrics:
+    _target_: metrics.distance_based.HaversineMetrics
+    acc_radiuses:
+      - 1
+      - 25
+      - 200
+      - 750
+      - 2500
+    acc_area: ${areas}
+
+datamodule:
+  _target_: data.datamodule.ImageDataModule
+  train_dataset: ${dataset.train_dataset}
+  val_dataset: ${dataset.val_dataset}
+  test_dataset: ${dataset.test_dataset}
+  full_batch_size: ${dataset.full_batch_size}
+  eval_batch_size: ${dataset.eval_batch_size}
+  num_workers: ${computer.num_workers}
+  num_nodes: ${computer.num_nodes}
+  num_devices: ${computer.devices}
+  val_proportion: 0.02
+
+trainer:
+  _target_: pytorch_lightning.Trainer
+  devices: ${computer.devices}
+  accelerator: ${computer.accelerator}
+  strategy: ${computer.strategy}
+  num_nodes: ${computer.num_nodes}
+  precision: ${computer.precision}
+  max_steps: 1000000
+  val_check_interval: 25000
+  check_val_every_n_epoch: null
+
+logger:
+  _target_: pytorch_lightning.loggers.WandbLogger
+  save_dir: ${root_dir}
+  name: ${experiment_name}${logger_suffix}
+  project: diff_plonk
+  log_model: False
+  offline: False
+
+checkpoints:
+  _target_: pytorch_lightning.callbacks.ModelCheckpoint
+  dirpath: ${root_dir}/checkpoints/${experiment_name}
+  filename: 'epoch_{epoch}'
+  monitor: val/loss
+  save_last: True
+  save_top_k: 0
+  every_n_epochs: 1
+  enable_version_counter: False
+
+progress_bar:
+  _target_: pytorch_lightning.callbacks.TQDMProgressBar
+  refresh_rate: ${computer.progress_bar_refresh_rate}
+
+data_dir: ${root_dir}/datasets
+root_dir:  ${hydra:runtime.cwd}
+experiment_name: ${dataset.name}_${model.name}_${experiment_name_suffix}
+experiment_name_suffix: base
+logger_suffix:  ""
+mode: train # change that to eval to do the testing
+areas: ['country', 'region', 'sub-region', 'city']
+class_name: null
+streetclip: False
+blur: False
+text_tuning: False
+
+hydra:
+  run:
+    dir: outputs/${hydra.job.name}/${now:%Y-%m-%d_%H-%M-%S}/${experiment_name}
+  job:
+    chdir: true
