@@ -22,7 +22,14 @@ This repository contains the code for the paper "Around the World in 80 Timestep
 Project website: [https://nicolas-dufour.github.io/plonk](https://nicolas-dufour.github.io/plonk)
 
 ##  Installation
-For a local installation, you can clone the repository and install the dependencies:
+If you want to use our models, you can directly install the `diff-plonk` package:
+```bash
+conda create -n plonk python=3.10
+conda activate plonk
+pip install diff-plonk
+```
+
+For a local installation, if you want to train the model or use the demo, you can clone the repository and install the dependencies:
 
 ```bash
 git clone https://github.com/nicolas-dufour/plonk.git
@@ -63,6 +70,7 @@ pipeline = PLONKPipeline.from_pretrained("nicolas-dufour/PLONK_YFCC")
 
 gps_coords = pipeline(images, batch_size=1024)
 ```
+With images being a list of PIL images or a PIL image.
 
 3 different models are provided for each dataset:
 
@@ -71,6 +79,11 @@ gps_coords = pipeline(images, batch_size=1024)
 - `nicolas-dufour/PLONK_iNat`: iNat-21
 
 ## Training
+### Install training dependencies
+You will need to install the training dependencies:
+```bash
+pip install -e ".[train]"
+```
 
 ### Downloading the dataset
 You will need to download the OSV5M webdataset from the [https://huggingface.co/datasets/osv5m/osv5m-wds](https://huggingface.co/datasets/osv5m/osv5m-wds) in the `plonk/datasets/osv5m` folder.
