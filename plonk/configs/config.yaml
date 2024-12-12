@@ -51,7 +51,7 @@ trainer:
 
 logger:
   _target_: pytorch_lightning.loggers.WandbLogger
-  save_dir: ${root_dir}
+  save_dir: ${root_dir}/plonk
   name: ${experiment_name}${logger_suffix}
   project: diff_plonk
   log_model: False
@@ -59,7 +59,7 @@ logger:
 
 checkpoints:
   _target_: pytorch_lightning.callbacks.ModelCheckpoint
-  dirpath: ${root_dir}/checkpoints/${experiment_name}
+  dirpath: ${root_dir}/plonk/checkpoints/${experiment_name}
   filename: 'epoch_{epoch}'
   monitor: val/loss
   save_last: True
@@ -71,7 +71,7 @@ progress_bar:
   _target_: pytorch_lightning.callbacks.TQDMProgressBar
   refresh_rate: ${computer.progress_bar_refresh_rate}
 
-data_dir: ${root_dir}/datasets
+data_dir: ${root_dir}/plonk/datasets
 root_dir:  ${hydra:runtime.cwd}
 experiment_name: ${dataset.name}_${model.name}_${experiment_name_suffix}
 experiment_name_suffix: base

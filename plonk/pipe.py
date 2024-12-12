@@ -1,7 +1,4 @@
 import torch
-import random
-import string
-from transformers import AutoTokenizer, T5EncoderModel
 from plonk.models.pretrained_models import Plonk
 from plonk.models.samplers.riemannian_flow_sampler import riemannian_flow_sampler
 
@@ -104,29 +101,25 @@ def load_prepocessing(model_name, dtype=torch.float32):
 
 class PlonkPipeline:
     """
-    The CADT2IPipeline class is designed to facilitate the generation of images from text prompts using a pre-trained CAD model.
-    It integrates various components such as samplers, schedulers, and post-processing techniques to produce high-quality images.
+    The PlonkPipeline class is designed to perform geolocation prediction from images using a pre-trained PLONK model.
+    It integrates various components such as feature extractors, samplers, and coordinate transformations to predict locations.
 
     Initialization:
-        CADT2IPipeline(
+        PlonkPipeline(
             model_path,
-            sampler="ddim",
-            scheduler="sigmoid",
-            postprocessing="sd_1_5_vae",
-            scheduler_start=-3,
+            scheduler="sigmoid", 
+            scheduler_start=-7,
             scheduler_end=3,
-            scheduler_tau=1.1,
+            scheduler_tau=1.0,
             device="cuda",
         )
 
     Parameters:
-        model_path (str): Path to the pre-trained CAD model.
-        sampler (str): The sampling method to use. Options are "ddim", "ddpm", "dpm", "dpm_2S", "dpm_2M". Default is "ddim".
+        model_path (str): Path to the pre-trained PLONK model.
         scheduler (str): The scheduler type to use. Options are "sigmoid", "cosine", "linear". Default is "sigmoid".
-        postprocessing (str): The post-processing method to use. Options are "consistency-decoder", "sd_1_5_vae". Default is "sd_1_5_vae".
-        scheduler_start (float): Start value for the scheduler. Default is -3.
+        scheduler_start (float): Start value for the scheduler. Default is -7.
         scheduler_end (float): End value for the scheduler. Default is 3.
-        scheduler_tau (float): Tau value for the scheduler. Default is 1.1.
+        scheduler_tau (float): Tau value for the scheduler. Default is 1.0.
         device (str): Device to run the model on. Default is "cuda".
 
     Methods:
@@ -134,48 +127,29 @@ class PlonkPipeline:
             Runs the preconditioning on the network with the provided arguments.
 
         __call__(...):
-            Generates images based on the provided conditions and parameters.
+            Predicts geolocation coordinates from input images.
 
             Parameters:
-                cond (str or list of str): The conditioning text or list of texts.
-                num_samples (int, optional): Number of samples to generate. If not provided, it is inferred from cond.
+                images: Input images to predict locations for.
+                batch_size (int, optional): Batch size for processing.
                 x_N (torch.Tensor, optional): Initial noise tensor. If not provided, it is generated.
-                latents (torch.Tensor, optional): Previous latents.
-                num_steps (int, optional): Number of steps for the sampler. If not provided, the default is used.
-                sampler (callable, optional): Custom sampler function. If not provided, the default sampler is used.
+                num_steps (int, optional): Number of steps for the sampler.
                 scheduler (callable, optional): Custom scheduler function. If not provided, the default scheduler is used.
-                cfg (float): Classifier-free guidance scale. Default is 15.
-                guidance_type (str): Type of guidance. Default is "constant".
-                guidance_start_step (int): Step to start guidance. Default is 0.
+                cfg (float): Classifier-free guidance scale. Default is 0.
                 generator (torch.Generator, optional): Random number generator.
-                coherence_value (float): Doherence value for sampling. Default is 1.0.
-                uncoherence_value (float): Uncoherence value for sampling. Default is 0.0.
-                unconfident_prompt (str, optional): Unconfident prompt text.
-                thresholding_type (str): Type of thresholding. Default is "clamp".
-                clamp_value (float): Clamp value for thresholding. Default is 1.0.
-                thresholding_percentile (float): Percentile for thresholding. Default is 0.995.
 
             Returns:
-                torch.Tensor: The generated image tensor after post-processing.
-
-        to(device):
-            Moves the model and its components to the specified device.
-
-            Parameters:
-                device (str): The device to move the model to (e.g., "cuda", "cpu").
-
-            Returns:
-                CADT2IPipeline: The pipeline instance with updated device.
+                torch.Tensor: Predicted latitude and longitude coordinates.
 
     Example Usage:
-            pipe = CADT2IPipeline(
-                "nicolas-dufour/",
-            )
-            pipe.to("cuda")
-            image = pipe(
-                "a beautiful landscape with a river and mountains",
-                num_samples=4,
-            )
+        pipe = PlonkPipeline(
+            "path/to/plonk/model",
+        )
+        pipe.to("cuda")
+        coordinates = pipe(
+            images,
+            batch_size=32
+        )
     """
 
     def __init__(
