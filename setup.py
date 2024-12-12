@@ -5,6 +5,7 @@ setup(
     version="0.1",
     description="Diffusion Geolocalization package for PLONK models",
     author="Nicolas Dufour",
+    python_requires=">=3.10",
     packages=["plonk"],
     install_requires=[
         "torch",
