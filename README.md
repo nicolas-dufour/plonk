@@ -17,9 +17,16 @@ Introducing the first generative geolocation method based on diffusion and flow 
 
 This repository contains the code for the paper "Around the World in 80 Timesteps: A Generative Approach to Global Visual Geolocation"
 
-
+<br>
+<br>
 
 Project website: [https://nicolas-dufour.github.io/plonk](https://nicolas-dufour.github.io/plonk)
+
+Arxiv: [https://arxiv.org/abs/2412.06781](https://arxiv.org/abs/2412.06781)
+
+HuggingFace Collection: [https://huggingface.co/collections/nicolas-dufour/around-the-world-in-80-timesteps-6758595d634129e6fc63dad9](https://huggingface.co/collections/nicolas-dufour/around-the-world-in-80-timesteps-6758595d634129e6fc63dad9)
+
+Demo: [https://huggingface.co/spaces/nicolas-dufour/PLONK](https://huggingface.co/spaces/nicolas-dufour/PLONK)
 
 ##  Installation
 If you want to use our models, you can directly install the `diff-plonk` package:
