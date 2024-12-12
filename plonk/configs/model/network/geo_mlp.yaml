@@ -1,0 +1,5 @@
+_target_: plonk.models.networks.mlp.GeoConcatNMLP
+input_dim: 2
+hidden_dim: 512
+depth: 5
+cond_dim: ${dataset.cond_dim}

@@ -1,0 +1,38 @@
+defaults:
+  - train_transform: empty
+  - test_transform: empty
+  - _self_
+
+name: iNaturalist_${dataset.embedding_name}
+full_batch_size: 2048
+cond_dim: 1024
+eval_batch_size: 4096
+output_type: emb
+embedding_name: dinov2_vitl14_registers
+
+train_dataset:
+  _partial_: true
+  _target_: plonk.data.webdataset.GPSWebdataset
+  root: ${data_dir}/YFCC100M/train/
+  train: true
+  embedding_name: ${dataset.embedding_name}
+  return_image: false
+  metadata_attributes: []
+
+val_dataset:
+  _partial_: true
+  _target_: plonk.data.webdataset.GPSWebdataset
+  root: ${data_dir}/YFCC100M/yfcc4k/
+  train: false
+  embedding_name: ${dataset.embedding_name}
+  return_image: false
+  metadata_attributes: []
+
+test_dataset:
+  _partial_: true
+  _target_: plonk.data.webdataset.GPSWebdataset
+  root: ${data_dir}/YFCC100M/yfcc4k/
+  train: false
+  embedding_name: ${dataset.embedding_name}
+  return_image: false
+  metadata_attributes: []

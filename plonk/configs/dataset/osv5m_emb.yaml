@@ -1,0 +1,38 @@
+defaults:
+  - train_transform: empty
+  - test_transform: empty
+  - _self_
+
+name: osv5m_${dataset.embedding_name}
+full_batch_size: 1024
+eval_batch_size: 4096
+cond_dim: 1024
+output_type: emb
+embedding_name: street_clip
+
+train_dataset:
+  _partial_: true
+  _target_: plonk.data.webdataset.GPSWebdataset
+  root: ${data_dir}/osv5m/train/
+  train: true
+  embedding_name: ${dataset.embedding_name}
+  return_image: false
+  metadata_attributes: []
+
+val_dataset:
+  _partial_: true
+  _target_: plonk.data.webdataset.GPSWebdataset
+  root: ${data_dir}/osv5m/val/
+  train: false
+  embedding_name: ${dataset.embedding_name}
+  return_image: false
+  metadata_attributes: ["unique_country", "unique_region", "unique_sub-region", "unique_city"]
+
+test_dataset:
+  _partial_: true
+  _target_: plonk.data.webdataset.GPSWebdataset
+  root: ${data_dir}/osv5m/test/
+  train: false
+  embedding_name: ${dataset.embedding_name}
+  return_image: false
+  metadata_attributes: ["unique_country", "unique_region", "unique_sub-region", "unique_city"]

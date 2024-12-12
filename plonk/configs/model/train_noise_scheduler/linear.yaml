@@ -1,0 +1,4 @@
+_target_: plonk.models.schedulers.LinearScheduler
+start: 1
+end: 0
+clip_min: 1e-9

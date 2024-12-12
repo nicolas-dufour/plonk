@@ -1,0 +1,4 @@
+_partial_: true
+_target_: plonk.models.samplers.ddpm.ddpm_sampler
+num_steps: 1000
+cfg_rate: ${model.cfg_rate}

@@ -1,3 +1,0 @@
-_target_: models.preprocessing.GPStoCartesian
-input_key: gps
-output_key: x_0

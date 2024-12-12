@@ -1,0 +1,4 @@
+_partial_: true
+_target_: plonk.models.samplers.riemannian_flow_sampler.riemannian_flow_sampler
+num_steps: 250
+cfg_rate: ${model.cfg_rate}

@@ -1,0 +1,43 @@
+defaults:
+  - train_transform: fast_clip
+  - test_transform: fast_clip
+  - _self_
+
+name: osv5m
+full_batch_size: 2048
+eval_batch_size: 4096
+train_dataset:
+  _partial_: true
+  _target_: plonk.data.data.OSV5M
+  path: ${data_dir}/osv5m/
+  split: train
+  class_name: ${class_name}
+  transforms: ${dataset.train_transform}
+  is_baseline: ${is_baseline}
+  areas: ${areas}
+  streetclip: ${streetclip}
+  blur: ${blur}
+
+val_dataset:
+  _partial_: true
+  _target_: plonk.data.data.OSV5M
+  path: ${data_dir}/osv5m/
+  split: val
+  class_name: ${class_name}
+  transforms: ${dataset.test_transform}
+  is_baseline: ${is_baseline}
+  areas: ${areas}
+  streetclip: ${streetclip}
+  blur: ${blur}
+
+test_dataset:
+  _partial_: true
+  _target_: plonk.data.data.OSV5M
+  path: ${data_dir}/osv5m/
+  split: test
+  class_name: ${class_name}
+  transforms: ${dataset.test_transform}
+  is_baseline: ${is_baseline}
+  areas: ${areas}
+  streetclip: ${streetclip}
+  blur: ${blur}

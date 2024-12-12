@@ -170,6 +170,8 @@ outputs/
 wandb
 outputs
 checkpoints
+plonk/checkpoints/
+plonk/datasets/
 /datasets/baselines/
 /datasets/baselines.zip
 /game/results/

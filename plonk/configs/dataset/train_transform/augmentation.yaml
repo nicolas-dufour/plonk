@@ -1,0 +1,85 @@
+_target_: plonk.data.augmentation.ImageAugmentation
+names: "standard_augmentation,geometric_augmentation,clip_transform"
+
+# always apply clip_transform at the end
+clip_transform:
+  _target_: torchvision.transforms.Compose
+  transforms:
+    - _target_: torchvision.transforms.Resize
+      size: 224
+      interpolation: 3
+      antialias: true
+    - _target_: torchvision.transforms.CenterCrop
+      size: 224
+    - _target_: torchvision.transforms.ToTensor
+    - _target_: torchvision.transforms.Normalize
+      mean: [0.48145466, 0.4578275, 0.40821073]
+      std: [0.26862954, 0.26130258, 0.27577711]
+
+standard_augmentation:
+  _target_: plonk.data.augmentation.StandardAugmentation
+  # by default, we all augmentation methods
+  names: "brightness,contrast,sharpness,color,blur,gaussian_noise"
+
+  # random PIL brigtness
+  brightness:
+    _target_: plonk.data.augmentation.PillowBrightness
+    p: 0.2
+    factor_interval: [0.5, 1.5]
+
+  # random PIL contrast
+  contrast:
+    _target_: plonk.data.augmentation.PillowContrast
+    p: 0.2
+    factor_interval: [0.3, 3]
+
+  # random PIL sharpness
+  sharpness:
+    _target_: plonk.data.augmentation.PillowSharpness
+    p: 0.2
+    factor_interval: [0.5, 30.0]
+
+  # random PIL color
+  color:
+    _target_: plonk.data.augmentation.PillowColor
+    p: 0.2
+    factor_interval: [0.0, 2.0]
+
+  # random PIL blur
+  blur:
+    _target_: plonk.data.augmentation.PillowBlur
+    p: 0.2
+    factor_interval: [1, 2]
+
+  # random numpy gaussian noise
+  gaussian_noise:
+    _target_: plonk.data.augmentation.NumpyGaussianNoise
+    p: 0.2
+    factor_interval: [0.1, 0.04]
+
+geometric_augmentation:
+  _target_: plonk.data.augmentation.GeometricAugmentation
+  # by default, we all augmentation methods
+  names: "random_rotation,random_resized_crop,random_horizontal_flip"
+
+  # random rotation
+  random_rotation:
+    _target_: torchvision.transforms.RandomRotation
+    degrees: [-15, 15]
+
+  # random crop
+  random_resized_crop:
+    _target_: torchvision.transforms.RandomResizedCrop
+    scale: [0.5, 1.0]
+    ratio: [0.9, 1.1]
+    size: 224
+
+  # random horizontal flip
+  random_horizontal_flip:
+    _target_: torchvision.transforms.RandomHorizontalFlip
+    p: 0.5
+
+  # random vertical flip
+  random_vertical_flip:
+    _target_: torchvision.transforms.RandomVerticalFlip
+    p: 0.5

@@ -1,0 +1,5 @@
+_target_: plonk.models.schedulers.SigmoidScheduler
+start: -3
+end: 3
+tau: 0.9
+clip_min: 1e-9

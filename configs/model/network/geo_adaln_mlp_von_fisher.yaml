@@ -1,6 +1,0 @@
-_target_: models.networks.mlp.GeoAdaLNMLPVonFisher
-input_dim: 2
-dim: 256
-depth: 8
-expansion: 4
-cond_dim: ${dataset.cond_dim}

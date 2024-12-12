@@ -1,0 +1,14 @@
+_target_: torchvision.transforms.Compose
+transforms:
+  - _target_: torchvision.transforms.ToTensor
+  - _target_: plonk.utils.image_processing.CenterCrop
+    ratio: "1:1"
+  - _target_: torchvision.transforms.Resize
+    size: ${dataset.img_resolution}
+    interpolation: 3
+    antialias: true
+  - _target_: torchvision.transforms.RandomHorizontalFlip
+    p: 0.5
+  - _target_: torchvision.transforms.Normalize
+    mean: 0.5
+    std: 0.5

@@ -20,7 +20,7 @@ for root, dirs, files in os.walk("datasets/osv5m"):
 
 You can also directly load the dataset using `load_dataset`:
 ```python
-from datasets import load_dataset
+from plonk.datasets import load_dataset
 dataset = load_dataset('osv5m/osv5m', full=False)
 ```
 where with `full` you can specify whether you want to load the complete metadata (default: `False`).

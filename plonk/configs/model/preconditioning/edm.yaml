@@ -1,0 +1,6 @@
+_partial_: true
+_target_: plonk.models.preconditioning.EDMPrecond
+label_dim: ${data.label_dim} 
+sigma_min: 0 
+sigma_max: !!float .inf
+sigma_data: 0.5

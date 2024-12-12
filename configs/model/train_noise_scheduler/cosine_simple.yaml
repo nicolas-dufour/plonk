@@ -1,3 +1,0 @@
-_target_: models.schedulers.CosineSchedulerSimple
-ns: 2e-4
-ds: 2.5e-4

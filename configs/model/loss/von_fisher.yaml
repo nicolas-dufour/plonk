@@ -1,2 +1,0 @@
-_partial_: true
-_target_: models.losses.VonFisherLoss

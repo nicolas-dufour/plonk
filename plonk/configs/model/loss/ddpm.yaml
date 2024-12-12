@@ -1,0 +1,4 @@
+_partial_: true
+_target_: plonk.models.losses.DDPMLoss
+cond_drop_rate: 0.0
+conditioning_key: ${model.cond_preprocessing.output_key}

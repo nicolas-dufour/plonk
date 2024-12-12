@@ -1,0 +1,4 @@
+_target_: plonk.models.preprocessing.NormGPS
+input_key: gps
+output_key: x_0
+normalize: False
