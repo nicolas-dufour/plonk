@@ -71,9 +71,9 @@ streamlit run plonk/demo/demo.py
 To use the models, you can use our pipeline:
 
 ```python
-from plonk import PLONKPipeline
+from plonk import PlonkPipeline
 
-pipeline = PLONKPipeline.from_pretrained("nicolas-dufour/PLONK_YFCC")
+pipeline = PlonkPipeline("nicolas-dufour/PLONK_YFCC")
 
 gps_coords = pipeline(images, batch_size=1024)
 ```
