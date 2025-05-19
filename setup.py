@@ -1,12 +1,17 @@
-from setuptools import setup
+from setuptools import setup, find_packages
+
+with open("README.md", "r", encoding="utf-8") as fh:
+    long_description = fh.read()
 
 setup(
     name="diff_plonk",
-    version="0.1",
+    version="0.3",
     description="Diffusion Geolocalization package for PLONK models",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
     author="Nicolas Dufour",
     python_requires=">=3.10",
-    packages=["plonk"],
+    packages=find_packages(),
     install_requires=[
         "torch",
         "torchvision",

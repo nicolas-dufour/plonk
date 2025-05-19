@@ -38,12 +38,21 @@ pip install diff-plonk
 
 For a local installation, if you want to train the model or use the demo, you can clone the repository and install the dependencies:
 
+
+From the github repository:
 ```bash
 git clone https://github.com/nicolas-dufour/plonk.git
 cd plonk
 conda create -n plonk python=3.10
 conda activate plonk
 pip install -e .
+```
+
+From pip:
+```bash
+conda create -n plonk python=3.10
+conda activate plonk
+pip install diff-plonk
 ```
 
 ## Models
@@ -81,7 +90,7 @@ With images being a list of PIL images or a PIL image.
 
 3 different models are provided for each dataset:
 
-- `nicolas-dufour/PLONK_OSV`: OSV-5M
+- `nicolas-dufour/PLONK_OSV_5M`: OSV-5M
 - `nicolas-dufour/PLONK_YFCC`: YFCC-100M
 - `nicolas-dufour/PLONK_iNat`: iNat-21
 
