@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 from PIL import Image
 import torch
-from pipe import PlonkPipeline
+from plonk import PlonkPipeline
 from pathlib import Path
 from streamlit_extras.colored_header import colored_header
 import plotly.express as px
