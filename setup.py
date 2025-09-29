@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="diff_plonk",
-    version="0.3",
+    version="0.4",
     description="Diffusion Geolocalization package for PLONK models",
     long_description=long_description,
     long_description_content_type="text/markdown",
