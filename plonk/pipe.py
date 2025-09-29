@@ -1,6 +1,8 @@
 import torch
 from plonk.models.pretrained_models import Plonk
 from plonk.models.samplers.riemannian_flow_sampler import riemannian_flow_sampler
+from plonk.models.samplers.flow_sampler import flow_sampler
+from plonk.models.samplers.ddim import ddim_sampler
 
 from plonk.models.postprocessing import CartesiantoGPS
 
@@ -21,12 +23,38 @@ from tqdm import tqdm
 
 device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 MODELS = {
-    "nicolas-dufour/PLONK_YFCC": {"emb_name": "dinov2"},
+    "nicolas-dufour/PLONK_YFCC": {
+        "emb_name": "dinov2",
+        "sampler": riemannian_flow_sampler,
+    },
     "nicolas-dufour/PLONK_OSV_5M": {
         "emb_name": "street_clip",
+        "sampler": riemannian_flow_sampler,
     },
     "nicolas-dufour/PLONK_iNaturalist": {
         "emb_name": "dinov2",
+        "sampler": riemannian_flow_sampler,
+    },
+    "nicolas-dufour/PLONK_YFCC_flow": {"emb_name": "dinov2", "sampler": flow_sampler},
+    "nicolas-dufour/PLONK_OSV_5M_flow": {
+        "emb_name": "street_clip",
+        "sampler": flow_sampler,
+    },
+    "nicolas-dufour/PLONK_iNaturalist_flow": {
+        "emb_name": "dinov2",
+        "sampler": flow_sampler,
+    },
+    "nicolas-dufour/PLONK_YFCC_diffusion": {
+        "emb_name": "dinov2",
+        "sampler": ddim_sampler,
+    },
+    "nicolas-dufour/PLONK_OSV_5M_diffusion": {
+        "emb_name": "street_clip",
+        "sampler": ddim_sampler,
+    },
+    "nicolas-dufour/PLONK_iNaturalist_diffusion": {
+        "emb_name": "dinov2",
+        "sampler": ddim_sampler,
     },
 }
 
@@ -68,6 +96,9 @@ class DinoV2FeatureExtractor:
         embs = []
         with torch.no_grad():
             for img in batch["img"]:
+                # Ensure image is RGB before augmentation
+                if img.mode != "RGB":
+                    img = img.convert("RGB")
                 emb = self.emb_model(
                     self.augmentation(img).unsqueeze(0).to(self.device)
                 ).squeeze(0)
@@ -263,7 +294,7 @@ class PlonkPipeline:
         )
         self.cond_preprocessing = load_prepocessing(model_name=model_path)
         self.postprocessing = CartesiantoGPS()
-        self.sampler = riemannian_flow_sampler
+        self.sampler = MODELS[model_path]["sampler"]
         self.model_path = model_path
         self.preconditioning = DDPMPrecond()
         self.device = device

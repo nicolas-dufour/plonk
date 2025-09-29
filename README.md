@@ -94,6 +94,21 @@ With images being a list of PIL images or a PIL image.
 - `nicolas-dufour/PLONK_YFCC`: YFCC-100M
 - `nicolas-dufour/PLONK_iNat`: iNat-21
 
+### Baselines models
+We also provide the baseline models for the OSV-5M, YFCC-100M, and iNat-21 datasets for the carthesian flow matching and diffusion models. You can download them from the [huggingface hub](https://huggingface.co/collections/nicolas-dufour/around-the-world-in-80-timesteps-6758595d634129e6fc63dad9).
+
+Flow matching models:
+
+- `nicolas-dufour/PLONK_OSV_5M_flow`: OSV-5M
+- `nicolas-dufour/PLONK_YFCC_flow`: YFCC-100M
+- `nicolas-dufour/PLONK_iNat_flow`: iNat-21
+
+Diffusion models:
+
+- `nicolas-dufour/PLONK_OSV_5M_diffusion`: OSV-5M
+- `nicolas-dufour/PLONK_YFCC_diffusion`: YFCC-100M
+- `nicolas-dufour/PLONK_iNat_diffusion`: iNat-21
+
 ## Training
 ### Install training dependencies
 You will need to install the training dependencies:
